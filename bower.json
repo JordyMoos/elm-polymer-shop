@@ -1,0 +1,20 @@
+{
+  "name": "elm-polymer-shop",
+  "description": "",
+  "main": "./src/index.js",
+  "authors": [
+    "Jordy Moos"
+  ],
+  "license": "MIT",
+  "homepage": "https://github.com/JordyMoos/elm-polymer-shop",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+
+  }
+}

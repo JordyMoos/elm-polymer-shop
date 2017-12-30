@@ -1,0 +1,9 @@
+dist
+
+elm-stuff
+repl-temp-*
+node_modules
+bower_components
+
+.DS_Store
+.idea
