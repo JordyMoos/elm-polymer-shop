@@ -16,6 +16,7 @@ import Style
 import View.Header as Header
 import View.Footer as Footer
 import Style.Sheet as Sheet
+import Style.Font as Font
 import Util.Util exposing (keepMsg, keepVariation)
 
 
@@ -137,6 +138,7 @@ viewPage page =
 
 type Styles
     = None
+    | FontFamily
     | HeaderStyles Header.Styles
     | FooterStyles Footer.Styles
     | BlankStyles Blank.Styles
@@ -150,6 +152,13 @@ styleSheet : Style.StyleSheet Styles variation
 styleSheet =
     Style.styleSheet
         [ Style.style None []
+        , Style.style FontFamily
+            [ Font.typeface
+                [ Font.font "Roboto"
+                , Font.font "Noto"
+                , Font.font "sans-serif"
+                ]
+            ]
         , Sheet.map HeaderStyles keepVariation Header.styles |> Sheet.merge
         , Sheet.map FooterStyles keepVariation Footer.styles |> Sheet.merge
         , Sheet.map BlankStyles keepVariation Blank.styles |> Sheet.merge
@@ -169,7 +178,7 @@ viewWrapContent : Element.Element Styles variation msg -> Html msg
 viewWrapContent content =
     Element.layout styleSheet <|
         Element.column
-            None
+            FontFamily
             []
             [ Element.mapAll keepMsg HeaderStyles keepVariation Header.view
             , Element.mainContent None [] content

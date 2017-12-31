@@ -4,23 +4,40 @@ import Data.Category as Category
 import Element
 import Element.Attributes as Attributes
 import Style exposing (..)
+import Style.Font as Font
+import Html
 
 
 type Styles
     = None
+    | Title
 
 
 styles : List (Style Styles variation)
 styles =
     [ style None []
+    , style Title
+        [ Font.size 17
+        , Font.weight 500
+        ]
     ]
+
+
+
+{-
+   h2 {
+           font-size: 20px;
+           font-weight: 500;
+           margin: 32px 0;
+         }
+-}
 
 
 view : Element.Element Styles variation msg
 view =
     Element.wrappedRow
         None
-        []
+        [ Attributes.spacingXY 0 40 ]
         viewCategories
 
 
@@ -34,9 +51,12 @@ viewCategory ( index, category ) =
     let
         attributes =
             if index > 1 then
-                [ Attributes.width <| Attributes.percent 50 ]
+                [ Attributes.center
+                , Attributes.width <| Attributes.percent 50
+                ]
             else
-                []
+                [ Attributes.center
+                ]
     in
         Element.column
             None
@@ -51,6 +71,12 @@ viewCategory ( index, category ) =
                     ]
                     Element.empty
                 )
-            , Element.h2 None [] (Element.text category.title)
-            , Element.text "Button here"
+            , Element.h2 Title [ Attributes.paddingXY 0 32 ] (Element.text category.title)
+            , Element.node
+                "shop-button"
+                (Element.el
+                    None
+                    []
+                    (Element.text "SHOP NOW")
+                )
             ]
