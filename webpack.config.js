@@ -21,16 +21,15 @@ module.exports = {
         test: /\.js$/,
         exclude: /(node_modules|bower_components)/,
         use: {
-          loader: 'babel-loader',
-          options: {
-            presets: ['babel-preset-env']
-          }
+          loader: 'babel-loader'
         }
       },
       {
         test: /\.html$/,
         use: [
-          'babel-loader',
+          {
+            loader: 'babel-loader'
+          },
           'polymer-webpack-loader'
         ]
       },
@@ -68,7 +67,8 @@ module.exports = {
   },
   plugins: [
     new HtmlWebpackPlugin({
-      template: './src/index.ejs'
+      template: './src/index.ejs',
+      inject: false
     }),
     new CopyWebpackPlugin([{
       from: path.resolve(__dirname, 'bower_components/webcomponentsjs/*.js'),

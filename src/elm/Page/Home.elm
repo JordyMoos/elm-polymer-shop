@@ -34,7 +34,9 @@ viewCategory category =
     Element.row
         None
         []
-        [ Element.text "Image here"
+        [ Element.node
+            "shop-image"
+            (Element.el None [] Element.empty)
         , Element.h2 None [] (Element.text category.title)
         , Element.text "Button here"
         ]
