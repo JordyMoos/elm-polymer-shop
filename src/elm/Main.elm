@@ -116,33 +116,34 @@ view model =
                 |> viewWrapContent
 
 
-viewPage : Page -> Element.Element styles variation msg
+viewPage : Page -> Element.Element Styles variation msg
 viewPage page =
     case page of
         BlankPage ->
-            Blank.view
+            Blank.view |> tagStyle BlankStyles
 
         NotFoundPage ->
-            NotFound.view
+            NotFound.view |> tagStyle NotFoundStyles
 
         ErrorPage model ->
-            Error.view model
+            Error.view model |> tagStyle ErrorStyles
 
         HomePage ->
-            Home.view
+            Home.view |> tagStyle HomeStyles
 
         CategoryPage model ->
-            Category.view model
+            Category.view model |> tagStyle CategoryStyles
 
 
 type Styles
     = None
     | HeaderStyles Header.Styles
     | FooterStyles Footer.Styles
-
-
-
---    | ContentStyles Layout.Styles
+    | BlankStyles Blank.Styles
+    | NotFoundStyles NotFound.Styles
+    | ErrorStyles Error.Styles
+    | HomeStyles Home.Styles
+    | CategoryStyles Category.Styles
 
 
 styleSheet : Style.StyleSheet Styles variation
@@ -151,19 +152,26 @@ styleSheet =
         [ Style.style None []
         , Sheet.map HeaderStyles keepVariation Header.styles |> Sheet.merge
         , Sheet.map FooterStyles keepVariation Footer.styles |> Sheet.merge
-
-        --        , Sheet.map ContentStyles keepVariation Layout.styles |> Sheet.merge
+        , Sheet.map BlankStyles keepVariation Blank.styles |> Sheet.merge
+        , Sheet.map NotFoundStyles keepVariation NotFound.styles |> Sheet.merge
+        , Sheet.map ErrorStyles keepVariation Error.styles |> Sheet.merge
+        , Sheet.map HomeStyles keepVariation Home.styles |> Sheet.merge
+        , Sheet.map CategoryStyles keepVariation Category.styles |> Sheet.merge
         ]
 
 
-viewWrapContent : Element.Element styles variation msg -> Html msg
+tagStyle : (styles -> Styles) -> Element.Element styles variation msg -> Element.Element Styles variation msg
+tagStyle tagger =
+    Element.mapAll keepMsg tagger keepVariation
+
+
+viewWrapContent : Element.Element Styles variation msg -> Html msg
 viewWrapContent content =
     Element.layout styleSheet <|
         Element.column
             None
             []
             [ Element.mapAll keepMsg HeaderStyles keepVariation Header.view
-
-            --            , Element.mainContent None [] (Element.mapAll keepMsg ContentStyles keepVariation content)
+            , Element.mainContent None [] content
             , Element.mapAll keepMsg FooterStyles keepVariation Footer.view
             ]

@@ -18,8 +18,8 @@ empty =
     }
 
 
-categoryList : List Category
-categoryList =
+categories : List Category
+categories =
     [ { name = "mens_outerwear"
       , title = "Men's Outerwear"
       , image = "images/mens_outerwear.jpg"
