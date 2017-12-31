@@ -18,7 +18,7 @@ styles =
 
 view : Element.Element Styles variation msg
 view =
-    Element.wrappedColumn
+    Element.wrappedRow
         None
         []
         viewCategories
@@ -26,24 +26,31 @@ view =
 
 viewCategories : List (Element.Element Styles variation msg)
 viewCategories =
-    List.map viewCategory Category.categories
+    List.map viewCategory <| List.indexedMap (,) Category.categories
 
 
-viewCategory : Category.Category -> Element.Element Styles variation msg
-viewCategory category =
-    Element.row
-        None
-        []
-        [ Element.node
-            "shop-image"
-            (Element.el
-                None
-                [ Attributes.attribute "src" category.image
-                , Attributes.attribute "alt" category.title
-                , Attributes.attribute "placeholder-img" category.placeholder
-                ]
-                Element.empty
-            )
-        , Element.h2 None [] (Element.text category.title)
-        , Element.text "Button here"
-        ]
+viewCategory : ( Int, Category.Category ) -> Element.Element Styles variation msg
+viewCategory ( index, category ) =
+    let
+        attributes =
+            if index > 1 then
+                [ Attributes.width <| Attributes.percent 50 ]
+            else
+                []
+    in
+        Element.column
+            None
+            attributes
+            [ Element.node
+                "shop-image"
+                (Element.el
+                    None
+                    [ Attributes.attribute "src" category.image
+                    , Attributes.attribute "alt" category.title
+                    , Attributes.attribute "placeholder-img" category.placeholder
+                    ]
+                    Element.empty
+                )
+            , Element.h2 None [] (Element.text category.title)
+            , Element.text "Button here"
+            ]
