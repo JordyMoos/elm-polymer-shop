@@ -36,7 +36,14 @@ viewCategory category =
         []
         [ Element.node
             "shop-image"
-            (Element.el None [] Element.empty)
+            (Element.el
+                None
+                [ Attributes.attribute "src" category.image
+                , Attributes.attribute "alt" category.title
+                , Attributes.attribute "placeholder-img" category.placeholder
+                ]
+                Element.empty
+            )
         , Element.h2 None [] (Element.text category.title)
         , Element.text "Button here"
         ]
