@@ -23,16 +23,6 @@ styles =
     ]
 
 
-
-{-
-   h2 {
-           font-size: 20px;
-           font-weight: 500;
-           margin: 32px 0;
-         }
--}
-
-
 view : Element.Element Styles variation msg
 view =
     Element.wrappedRow

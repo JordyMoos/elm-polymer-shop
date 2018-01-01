@@ -20,7 +20,7 @@ styles =
 
 view : Element Styles variation msg
 view =
-    header
+    el
         None
         []
         (link "#" <| text "Header")

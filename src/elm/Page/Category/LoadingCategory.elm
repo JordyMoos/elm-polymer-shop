@@ -25,7 +25,7 @@ init : String -> TransitionStatus Model Msg CategoryPage.Model
 init categoryName =
     asTransitionStatus <|
         { categoryName = categoryName
-        , category = Nothing
+        , category = Category.byName categoryName
         , items = RemoteData.Loading
         }
             ! [ ItemRequest.getByCategory ItemsResponse categoryName

@@ -29,4 +29,4 @@ decoder =
         |> required "price" Decode.float
         |> required "description" Decode.string
         |> required "image" Decode.string
-        |> required "imageLarge" Decode.string
+        |> required "largeImage" Decode.string
