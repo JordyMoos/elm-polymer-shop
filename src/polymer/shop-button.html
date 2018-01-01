@@ -21,14 +21,14 @@ This code is potentially changed to fit the elm app
         display: inline-block;
       }
 
-      :host > * {
+      :host > a {
         display: inline-block;
         box-sizing: border-box;
         border: 2px solid #000;
         background-color: #FFF;
         font-size: 14px;
         font-weight: 500;
-        color: var(--app-primary-color);
+        color: #202020;
         margin: 0;
         padding: 8px 44px;
         text-align: center;
@@ -39,11 +39,11 @@ This code is potentially changed to fit the elm app
         -webkit-appearance: none;
       }
 
-      :host > *:focus {
+      :host > a:focus {
         background-color: #c5cad3;
       }
 
-      :host > *:active {
+      :host > a:active {
         background-color: #000;
         color: #FFF;
       }
@@ -52,13 +52,13 @@ This code is potentially changed to fit the elm app
 
         /* Responsive buttons are used in shop-detail, shop-cart and shop-checkout */
         :host[responsive] {
-          @apply --layout-fixed-bottom;
+          /*@apply --layout-fixed-bottom;*/
           height: 64px;
           z-index: 1;
         }
 
-        :host[responsive] > * {
-          background-color: var(--app-accent-color);
+        :host[responsive] > a {
+          background-color: #172C50;
           border: none;
           color: white;
           padding: 20px;
@@ -67,14 +67,16 @@ This code is potentially changed to fit the elm app
           font-size: 15px;
         }
 
-        :host[responsive] > *:focus {
-          background-color: var(--app-accent-color);
+        :host[responsive] > a:focus {
+          background-color: #172C50;
         }
 
       }
 
     </style>
+
     <a href="[[href]]"><slot></slot></a>
+
   </template>
   <script>
     class ShopButton extends Polymer.Element {

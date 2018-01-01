@@ -29,5 +29,15 @@ init model =
 
 
 view : Model -> Element.Element Styles variation msg
-view model =
-    text "Detail Page"
+view { category, item } =
+    node "shop-detail" <|
+        el None
+            [ attribute "name" item.name
+            , attribute "title" item.title
+            , attribute "category" item.category
+            , attribute "price" <| toString item.price
+            , attribute "description" item.description
+            , attribute "image" item.image
+            , attribute "largeImage" item.largeImage
+            ]
+            empty
