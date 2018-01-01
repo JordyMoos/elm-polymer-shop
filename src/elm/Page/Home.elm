@@ -76,7 +76,7 @@ viewCategory ( index, category ) =
                 "shop-button"
                 (Element.el
                     None
-                    []
+                    [ Attributes.attribute "href" <| Category.url category ]
                     (Element.text "SHOP NOW")
                 )
             ]

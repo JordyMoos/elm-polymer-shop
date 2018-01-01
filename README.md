@@ -23,5 +23,5 @@ Run the app
 yarn dev
 ```
 
-Goto `127.0.0.1:8888` in your browser.
+Goto `[::1]:8888` in your browser.
 

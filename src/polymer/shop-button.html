@@ -74,7 +74,7 @@ This code is potentially changed to fit the elm app
       }
 
     </style>
-    <a href="#"><slot></slot></a>
+    <a href="[[href]]"><slot></slot></a>
   </template>
   <script>
     class ShopButton extends Polymer.Element {
@@ -83,7 +83,7 @@ This code is potentially changed to fit the elm app
 
       static get properties() {
         return {
-
+          href: String
         };
       }
     }

@@ -23,4 +23,4 @@ view =
     header
         None
         []
-        (text "Header")
+        (link "#" <| text "Header")

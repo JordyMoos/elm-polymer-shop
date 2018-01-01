@@ -69,13 +69,7 @@ module.exports = {
     stats: 'errors-only',
     host: '::',
     public: '[::1]:8888',
-    port: 8888,
-    proxy: {
-      '/api': {
-        target: 'http://127.0.0.1:5000',
-        changeOrigin: true
-      }
-    }
+    port: 8888
   },
   plugins: [
     new HtmlWebpackPlugin({
@@ -85,6 +79,8 @@ module.exports = {
     new CopyWebpackPlugin([{
       from: path.resolve(__dirname, 'bower_components/webcomponentsjs/*.js'),
       to: 'bower_components/webcomponentsjs/[name].[ext]'
+    }, {
+      from: path.resolve(__dirname, 'src/static')
     }]),
     new webpack.NamedModulesPlugin(),
     new webpack.HotModuleReplacementPlugin(),
