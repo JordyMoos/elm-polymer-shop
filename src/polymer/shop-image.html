@@ -48,21 +48,21 @@ This code is potentially changed to fit the elm app
 
       static get is() { return 'shop-image'; }
 
-      static get properties() { return {
+      static get properties() {
+        return {
+          alt: String,
 
-        alt: String,
+          src: {
+            type: String,
+            observer: '_srcChanged'
+          },
 
-        src: {
-          type: String,
-          observer: '_srcChanged'
-        },
-
-        placeholderImg: {
-          type: String,
-          observer: '_placeholderImgChanged'
-        }
-
-      }}
+          placeholderImg: {
+            type: String,
+            observer: '_placeholderImgChanged'
+          }
+        };
+      }
 
       _srcChanged(src) {
         this.$.img.removeAttribute('src');

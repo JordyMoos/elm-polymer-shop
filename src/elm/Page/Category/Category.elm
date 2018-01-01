@@ -75,4 +75,18 @@ itemCount count =
 
 itemsContainer : List Item.Item -> Element.Element Styles variation msg
 itemsContainer items =
-    empty
+    wrappedRow None [] <|
+        List.map itemContainer items
+
+
+itemContainer : Item.Item -> Element.Element Styles variation msg
+itemContainer item =
+    link (Item.url item) <|
+        node "shop-list-item" <|
+            el None
+                [ attribute "title" item.title
+                , attribute "image" item.image
+                , attribute "placeholder" item.image
+                , attribute "price" <| toString item.price
+                ]
+                empty

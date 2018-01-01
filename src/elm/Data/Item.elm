@@ -30,3 +30,13 @@ decoder =
         |> required "description" Decode.string
         |> required "image" Decode.string
         |> required "largeImage" Decode.string
+
+
+url : Item -> String
+url { category, name } =
+    String.concat
+        [ "#/detail/"
+        , category
+        , "/"
+        , name
+        ]

@@ -30,11 +30,6 @@ This code is potentially changed to fit the elm app
         margin: 32px 0 16px;
       }
 
-      shop-image::before {
-        content: "";
-        display: block;
-        padding-top: 100%;
-      }
 
       .title {
         color: var(--app-primary-color);
@@ -53,9 +48,9 @@ This code is potentially changed to fit the elm app
 
     </style>
 
-    <shop-image src="[[item.image]]" alt="[[item.title]]"></shop-image>
-    <div class="title">[[item.title]]</div>
-    <span class="price">[[_formatPrice(item.price)]]</span>
+    <shop-image src="[[image]]" alt="[[title]]"></shop-image>
+    <div class="title">[[title]]</div>
+    <span class="price">[[_formatPrice(price)]]</span>
 
   </template>
 
@@ -65,11 +60,14 @@ This code is potentially changed to fit the elm app
 
       static get is() { return 'shop-list-item'; }
 
-      static get properties() { return {
-
-        item: Object
-
-      }}
+      static get properties() {
+        return {
+          title: String,
+          image: String,
+          placeholder: String,
+          price: Number
+        };
+      }
 
       _formatPrice(price) {
         return price ? '$' + price.toFixed(2) : '';

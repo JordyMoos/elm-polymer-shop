@@ -158,6 +158,8 @@ styleSheet =
                 , Font.font "Noto"
                 , Font.font "sans-serif"
                 ]
+            , Font.size 13.0
+            , Font.lineHeight 1.5
             ]
         , Sheet.map HeaderStyles keepVariation Header.styles |> Sheet.merge
         , Sheet.map FooterStyles keepVariation Footer.styles |> Sheet.merge
