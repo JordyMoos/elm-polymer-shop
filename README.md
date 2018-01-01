@@ -20,6 +20,7 @@ yarn install
 
 Run the app
 ```
+yarn dev:build
 yarn dev
 ```
 
