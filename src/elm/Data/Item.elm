@@ -15,6 +15,18 @@ type alias Item =
     }
 
 
+empty : Item
+empty =
+    { name = ""
+    , title = ""
+    , category = ""
+    , price = 0.0
+    , description = ""
+    , image = ""
+    , largeImage = ""
+    }
+
+
 listDecoder : Decoder (List Item)
 listDecoder =
     Decode.list decoder

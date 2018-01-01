@@ -8,6 +8,8 @@ import Page.Error as Error
 import Page.Home as Home
 import Page.Category.Category as Category
 import Page.Category.LoadingCategory as LoadingCategory
+import Page.Detail.Detail as Detail
+import Page.Detail.LoadingDetail as LoadingDetail
 import PageLoader exposing (PageState(Loaded, Transitioning), TransitionStatus(..))
 import PageLoader.Progression as Progression
 import Navigation
@@ -26,10 +28,12 @@ type Page
     | ErrorPage Error.Model
     | HomePage
     | CategoryPage Category.Model
+    | DetailPage Detail.Model
 
 
 type Loading
     = LoadingCategory LoadingCategory.Model Progression.Progression
+    | LoadingDetail LoadingDetail.Model Progression.Progression
 
 
 type alias Model =
@@ -61,6 +65,7 @@ type Msg
     = NoOp
     | ChangeLocation Navigation.Location
     | LoadingCategoryMsg LoadingCategory.Msg
+    | LoadingDetailMsg LoadingDetail.Msg
 
 
 update : Msg -> Model -> ( Model, Cmd Msg )
@@ -71,6 +76,10 @@ update msg model =
 
         ( LoadingCategoryMsg subMsg, Transitioning oldPage (LoadingCategory subModel _) ) ->
             processLoadingCategory oldPage (LoadingCategory.update subMsg subModel)
+                |> updatePageState model
+
+        ( LoadingDetailMsg subMsg, Transitioning oldPage (LoadingDetail subModel _) ) ->
+            processLoadingDetail oldPage (LoadingDetail.update subMsg subModel)
                 |> updatePageState model
 
         ( _, _ ) ->
@@ -94,10 +103,19 @@ setRoute maybeRoute model =
                 processLoadingCategory oldPage (LoadingCategory.init categoryName)
                     |> updatePageState model
 
+            Just (Routing.Detail categoryName itemName) ->
+                processLoadingDetail oldPage (LoadingDetail.init categoryName itemName)
+                    |> updatePageState model
+
 
 processLoadingCategory : Page -> TransitionStatus LoadingCategory.Model LoadingCategory.Msg Category.Model -> ( PageState Page Loading, Cmd Msg )
 processLoadingCategory =
     PageLoader.defaultProcessLoading ErrorPage LoadingCategory LoadingCategoryMsg CategoryPage Category.init (always NoOp)
+
+
+processLoadingDetail : Page -> TransitionStatus LoadingDetail.Model LoadingDetail.Msg Detail.Model -> ( PageState Page Loading, Cmd Msg )
+processLoadingDetail =
+    PageLoader.defaultProcessLoading ErrorPage LoadingDetail LoadingDetailMsg DetailPage Detail.init (always NoOp)
 
 
 updatePageState : Model -> ( PageState Page Loading, Cmd msg ) -> ( Model, Cmd msg )
@@ -135,6 +153,9 @@ viewPage page =
         CategoryPage model ->
             Category.view model |> tagStyle CategoryStyles
 
+        DetailPage model ->
+            Detail.view model |> tagStyle DetailStyles
+
 
 type Styles
     = None
@@ -146,6 +167,7 @@ type Styles
     | ErrorStyles Error.Styles
     | HomeStyles Home.Styles
     | CategoryStyles Category.Styles
+    | DetailStyles Detail.Styles
 
 
 styleSheet : Style.StyleSheet Styles variation
@@ -168,6 +190,7 @@ styleSheet =
         , Sheet.map ErrorStyles keepVariation Error.styles |> Sheet.merge
         , Sheet.map HomeStyles keepVariation Home.styles |> Sheet.merge
         , Sheet.map CategoryStyles keepVariation Category.styles |> Sheet.merge
+        , Sheet.map DetailStyles keepVariation Detail.styles |> Sheet.merge
         ]
 
 
